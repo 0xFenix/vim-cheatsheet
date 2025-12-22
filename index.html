@@ -19,7 +19,7 @@
             font-family: 'Fira Code', monospace;
         }
 
-        /* Tối ưu Layout Masonry để các card khít nhau */
+        /* Layout Masonry tối ưu diện tích */
         .masonry-grid {
             column-count: 1;
             column-gap: 1.5rem;
@@ -38,13 +38,13 @@
         }
 
         .category-container {
-            break-inside: avoid; /* Ngăn card bị cắt đôi giữa các cột */
+            break-inside: avoid;
             margin-bottom: 1.5rem;
             background: #1e293b;
             border: 1px solid #334155;
             border-radius: 12px;
             overflow: hidden;
-            display: inline-block; /* Quan trọng để column-count hoạt động chuẩn */
+            display: inline-block;
             width: 100%;
         }
 
@@ -109,12 +109,12 @@
         <!-- Header -->
         <header class="text-center mb-12">
             <div class="inline-block p-2 px-4 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm font-semibold mb-4">
-                <i class="fas fa-terminal mr-2"></i> Phiên bản tối ưu giao diện Masonry Grid
+                <i class="fas fa-terminal mr-2"></i> Đồng bộ hoàn toàn từ vim.rtorr.com
             </div>
-            <h1 class="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-blue-500">
-                VIM CHEAT SHEET
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-blue-500 uppercase">
+                Vim Cheat Sheet Việt Hóa
             </h1>
-            <p class="text-slate-400 text-lg max-w-2xl mx-auto">Tra cứu phím tắt chuẩn xác. Nhấn <kbd>/</kbd> để bắt đầu tìm kiếm.</p>
+            <p class="text-slate-400 text-lg max-w-2xl mx-auto">Đầy đủ các phím tắt quan trọng. Nhấn <kbd>/</kbd> để tìm kiếm nhanh.</p>
             
             <!-- Search Area -->
             <div class="mt-8 relative max-w-2xl mx-auto">
@@ -123,13 +123,13 @@
                 </div>
                 <input type="text" id="searchInput" 
                     class="block w-full pl-14 pr-6 py-4 bg-slate-800 border border-slate-700 rounded-2xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none transition-all text-white shadow-lg"
-                    placeholder="Tìm kiếm lệnh, phím tắt hoặc mô tả...">
+                    placeholder="Tìm phím tắt, lệnh hoặc chức năng...">
             </div>
         </header>
 
-        <!-- Main Display - Sử dụng class masonry-grid -->
+        <!-- Main Display -->
         <div id="mainGrid" class="masonry-grid items-start">
-            <!-- Render via JS -->
+            <!-- Dữ liệu được đổ từ JS -->
         </div>
 
         <!-- No Results -->
@@ -137,12 +137,12 @@
             <div class="bg-slate-800 inline-block p-8 rounded-full mb-6 border border-slate-700">
                 <i class="fas fa-search text-5xl text-slate-600"></i>
             </div>
-            <p class="text-slate-400 text-xl font-medium">Không tìm thấy lệnh phù hợp</p>
+            <p class="text-slate-400 text-xl font-medium">Không tìm thấy lệnh này trong bộ nhớ</p>
         </div>
 
         <!-- Footer -->
         <footer class="mt-20 border-t border-slate-800 pt-8 pb-12 text-center text-slate-500 text-xs uppercase tracking-widest">
-            <p>Dựa trên Vim.rtorr.com &bull; Việt hóa & Tối ưu bởi Gemini 2024</p>
+            <p>Dựa trên mã nguồn vim.rtorr.com &bull; Cập nhật đầy đủ phím di chuyển & thanh ghi</p>
         </footer>
     </div>
 
@@ -153,10 +153,11 @@
                 icon: "fa-globe",
                 color: "text-green-400",
                 commands: [
-                    { key: ":help keyword", desc: "Mở trợ giúp từ khóa", tags: "help tro giup" },
-                    { key: ":saveas file", desc: "Lưu file tên mới", tags: "save as luu" },
-                    { key: ":close", desc: "Đóng cửa sổ hiện tại", tags: "close dong" },
-                    { key: "K", desc: "Tra cứu tài liệu từ", tags: "man page lookup" }
+                    { key: ":h[elp] keyword", desc: "Mở trợ giúp cho từ khóa", tags: "help tro giup" },
+                    { key: ":sav[eas] file", desc: "Lưu file với tên mới", tags: "save as luu" },
+                    { key: ":clo[se]", desc: "Đóng cửa sổ hiện tại", tags: "close dong window" },
+                    { key: ":ter[minal]", desc: "Mở cửa sổ terminal", tags: "terminal console" },
+                    { key: "K", desc: "Mở man page của từ dưới con trỏ", tags: "manual lookup" }
                 ]
             },
             {
@@ -164,30 +165,39 @@
                 icon: "fa-arrows-alt",
                 color: "text-blue-400",
                 commands: [
-                    { key: "h j k l", desc: "Trái, Xuống, Lên, Phải", tags: "trai xuong len phai move" },
-                    { key: "w / W", desc: "Đầu từ tiếp theo (W bỏ qua ký tự đặc biệt)", tags: "word next" },
-                    { key: "e / E", desc: "Cuối từ tiếp theo", tags: "end word" },
-                    { key: "b / B", desc: "Lùi lại đầu từ", tags: "back word" },
+                    { key: "h j k l", desc: "Trái, Xuống, Lên, Phải", tags: "move directional" },
+                    { key: "gj / gk", desc: "Di chuyển xuống/lên trong văn bản dài (multi-line)", tags: "wrapped lines" },
+                    { key: "w / W", desc: "Đến đầu từ kế tiếp (W bỏ qua dấu câu)", tags: "word jump" },
+                    { key: "e / E", desc: "Đến cuối từ kế tiếp (E bỏ qua dấu câu)", tags: "end word" },
+                    { key: "b / B", desc: "Lùi lại đầu từ (B bỏ qua dấu câu)", tags: "back word" },
                     { key: "ge / gE", desc: "Lùi lại cuối từ trước đó", tags: "backward end" },
-                    { key: "0 / ^", desc: "Về đầu dòng / Ký tự đầu tiên", tags: "line start dau dong" },
-                    { key: "$ / g_", desc: "Về cuối dòng / Ký tự cuối", tags: "line end cuoi dong" },
-                    { key: "gg / G", desc: "Đầu file / Cuối file", tags: "top bottom dau cuoi" },
-                    { key: "numG", desc: "Đến dòng số 'num'", tags: "jump line number" },
-                    { key: ") / (", desc: "Câu tiếp / trước", tags: "sentence cau" },
-                    { key: "} / {", desc: "Đoạn tiếp / trước", tags: "paragraph doan" },
-                    { key: "H / M / L", desc: "Đầu / Giữa / Cuối màn hình", tags: "High Middle Low screen" },
-                    { key: "%", desc: "Nhảy tới dấu ngoặc đối xứng", tags: "matching bracket" }
+                    { key: "0 / ^", desc: "Về đầu dòng / Ký tự đầu tiên không trống", tags: "line start" },
+                    { key: "$ / g_", desc: "Về cuối dòng / Ký tự cuối không trống", tags: "line end" },
+                    { key: "gg / G", desc: "Về đầu file / Cuối file", tags: "top bottom" },
+                    { key: "5gg / 5G", desc: "Đến dòng số 5", tags: "line jump" },
+                    { key: "gd / gD", desc: "Đến khai báo cục bộ / toàn cục", tags: "declaration" },
+                    { key: "fx / tx", desc: "Tìm ký tự 'x' tiếp theo / dừng ngay trước đó", tags: "find char" },
+                    { key: "Fx / Tx", desc: "Tìm ký tự 'x' ngược lại / dừng ngay sau đó", tags: "find backward" },
+                    { key: "; / ,", desc: "Lặp lại lệnh tìm f/t theo hướng xuôi/ngược", tags: "repeat find" },
+                    { key: "} / {", desc: "Đến đoạn (paragraph) tiếp theo / trước đó", tags: "jump block" },
+                    { key: "H / M / L", desc: "Đầu / Giữa / Cuối màn hình hiện tại", tags: "screen position" },
+                    { key: "%", desc: "Nhảy tới dấu ngoặc đối xứng (), {}, []", tags: "matching bracket" }
                 ]
             },
             {
-                category: "Cuộn trang (Scrolling)",
-                icon: "fa-scroll",
+                category: "Chế độ Chèn (Insert Mode)",
+                icon: "fa-keyboard",
                 color: "text-emerald-400",
                 commands: [
-                    { key: "Ctrl + f / b", desc: "Lên / Xuống 1 trang", tags: "page down up cuon" },
-                    { key: "Ctrl + d / u", desc: "Lên / Xuống nửa trang", tags: "half page down up" },
-                    { key: "zz", desc: "Dòng hiện tại vào giữa", tags: "center screen" },
-                    { key: "zt / zb", desc: "Đưa lên đầu / cuối", tags: "top bottom screen" }
+                    { key: "i / I", desc: "Chèn trước con trỏ / đầu dòng", tags: "insert" },
+                    { key: "a / A", desc: "Chèn sau con trỏ / cuối dòng", tags: "append" },
+                    { key: "o / O", desc: "Dòng mới phía dưới / phía trên", tags: "open line" },
+                    { key: "ea", desc: "Chèn vào cuối từ hiện tại", tags: "append word end" },
+                    { key: "Ctrl + h/w", desc: "Xóa ký tự / Xóa từ trước con trỏ", tags: "delete insert" },
+                    { key: "Ctrl + j", desc: "Thêm ngắt dòng (line break)", tags: "new line" },
+                    { key: "Ctrl + t/d", desc: "Thụt lề vào / Thụt lề ra", tags: "indent" },
+                    { key: "Ctrl + n/p", desc: "Gợi ý từ tiếp theo / trước đó", tags: "autocomplete" },
+                    { key: "Esc / Ctrl+c", desc: "Thoát chế độ chèn", tags: "exit insert" }
                 ]
             },
             {
@@ -195,73 +205,80 @@
                 icon: "fa-edit",
                 color: "text-purple-400",
                 commands: [
-                    { key: "i / I", desc: "Chèn trước / đầu dòng", tags: "insert" },
-                    { key: "a / A", desc: "Chèn sau / cuối dòng", tags: "append" },
-                    { key: "o / O", desc: "Dòng mới dưới / trên", tags: "open line" },
-                    { key: "r / R", desc: "Thay 1 ký tự / Chế độ thay", tags: "replace thay the" },
-                    { key: "u / Ctrl+r", desc: "Undo / Redo", tags: "hoan tac" },
-                    { key: "cc / cw / c$", desc: "Sửa dòng / từ / đoạn", tags: "change" },
-                    { key: "J", desc: "Nối dòng dưới lên", tags: "join lines" },
-                    { key: ".", desc: "Lặp lại lệnh cuối", tags: "repeat" }
+                    { key: "r / R", desc: "Thay 1 ký tự / Chế độ thay thế (Replace)", tags: "replace" },
+                    { key: "J / gJ", desc: "Nối dòng dưới lên (có/không khoảng cách)", tags: "join lines" },
+                    { key: "cc / C", desc: "Sửa toàn bộ dòng / từ con trỏ đến cuối dòng", tags: "change" },
+                    { key: "ciw / cw", desc: "Sửa toàn bộ từ / sửa đến cuối từ", tags: "change word" },
+                    { key: "s / S", desc: "Xóa ký tự và chèn / Xóa dòng và chèn", tags: "substitute" },
+                    { key: "u / U", desc: "Hoàn tác (Undo) / Khôi phục dòng cuối", tags: "undo" },
+                    { key: "Ctrl + r", desc: "Làm lại (Redo)", tags: "redo" },
+                    { key: ".", desc: "Lặp lại lệnh cuối cùng", tags: "repeat" },
+                    { key: "gu / gU", desc: "Chuyển thành chữ thường / chữ hoa", tags: "lowercase uppercase" }
                 ]
             },
             {
-                category: "Cắt, Sao chép & Dán",
+                category: "Visual Mode & Cắt/Dán",
                 icon: "fa-copy",
                 color: "text-pink-400",
                 commands: [
-                    { key: "yy", desc: "Sao chép 1 dòng", tags: "copy copy" },
-                    { key: "yw", desc: "Sao chép 1 từ", tags: "copy word" },
-                    { key: "p / P", desc: "Dán sau / trước con trỏ", tags: "paste dan" },
-                    { key: "dd / dw", desc: "Xóa dòng / từ", tags: "delete cut xoa" },
-                    { key: "D", desc: "Xóa đến hết dòng", tags: "delete line" },
-                    { key: "x", desc: "Xóa ký tự hiện tại", tags: "delete char" }
+                    { key: "v / V", desc: "Chọn theo ký tự / Chọn theo dòng", tags: "visual" },
+                    { key: "Ctrl + v", desc: "Chọn khối dọc (Visual Block)", tags: "visual block" },
+                    { key: "aw / iw", desc: "Chọn toàn bộ từ / chọn trong từ", tags: "text object" },
+                    { key: "yy / 2yy", desc: "Copy (yank) 1 dòng / 2 dòng", tags: "copy" },
+                    { key: "yw / yiw", desc: "Copy từ / Copy toàn bộ từ dưới con trỏ", tags: "copy word" },
+                    { key: "p / P", desc: "Dán sau / trước con trỏ", tags: "paste" },
+                    { key: "dd / dw", desc: "Xóa (cắt) dòng / từ", tags: "delete cut" },
+                    { key: "D / x", desc: "Xóa đến hết dòng / Xóa ký tự hiện tại", tags: "delete" }
                 ]
             },
             {
-                category: "Chế độ Visual",
-                icon: "fa-mouse-pointer",
+                category: "Thanh ghi (Registers)",
+                icon: "fa-memory",
                 color: "text-yellow-400",
                 commands: [
-                    { key: "v", desc: "Chọn ký tự", tags: "select visual" },
-                    { key: "V", desc: "Chọn dòng", tags: "select lines" },
-                    { key: "Ctrl + v", desc: "Chọn khối dọc", tags: "select block" },
-                    { key: "aw / iw", desc: "Chọn cả từ / trong từ", tags: "text object" }
+                    { key: ":reg", desc: "Hiển thị nội dung các thanh ghi", tags: "registers list" },
+                    { key: '\"xy', desc: "Copy vào thanh ghi x", tags: "yank register" },
+                    { key: '\"xp', desc: "Dán từ thanh ghi x", tags: "paste register" },
+                    { key: '\"+y', desc: "Copy vào Clipboard hệ thống", tags: "system clipboard" },
+                    { key: '\"+p', desc: "Dán từ Clipboard hệ thống", tags: "system paste" }
                 ]
             },
             {
-                category: "Tìm & Thay thế",
-                icon: "fa-search",
-                color: "text-orange-400",
-                commands: [
-                    { key: "/pattern", desc: "Tìm kiếm xuôi", tags: "find search" },
-                    { key: "?pattern", desc: "Tìm kiếm ngược", tags: "find backward" },
-                    { key: "n / N", desc: "Kết quả kế tiếp / trước", tags: "next previous" },
-                    { key: ":%s/old/new/g", desc: "Thay thế toàn bộ file", tags: "replace" },
-                    { key: ":%s/old/new/gc", desc: "Thay thế có hỏi lại", tags: "confirm replace" }
-                ]
-            },
-            {
-                category: "Dấu & Macro",
+                category: "Dấu & Vị trí (Marks)",
                 icon: "fa-bookmark",
                 color: "text-indigo-400",
                 commands: [
-                    { key: "qa", desc: "Ghi macro vào kho 'a'", tags: "record macro" },
-                    { key: "q", desc: "Dừng ghi macro", tags: "stop macro" },
-                    { key: "@a", desc: "Chạy macro kho 'a'", tags: "play macro" },
-                    { key: "ma", desc: "Đánh dấu vị trí 'a'", tags: "set mark" },
-                    { key: "'a", desc: "Nhảy tới dấu 'a'", tags: "jump mark" }
+                    { key: ":marks", desc: "Danh sách các điểm đã đánh dấu", tags: "marks list" },
+                    { key: "ma", desc: "Đánh dấu vị trí hiện tại là 'a'", tags: "set mark" },
+                    { key: "`a", desc: "Nhảy đến vị trí 'a'", tags: "jump mark" },
+                    { key: "``", desc: "Nhảy về vị trí trước lần nhảy cuối", tags: "jump back" },
+                    { key: "Ctrl + o/i", desc: "Về vị trí cũ / mới trong Jump list", tags: "history jump" }
                 ]
             },
             {
-                category: "Lưu & Thoát",
-                icon: "fa-save",
-                color: "text-red-400",
+                category: "Nhiều File & Cửa sổ",
+                icon: "fa-clone",
+                color: "text-cyan-400",
                 commands: [
-                    { key: ":w", desc: "Lưu file", tags: "save write" },
-                    { key: ":wq / :x", desc: "Lưu và thoát", tags: "save quit" },
-                    { key: ":q / :q!", desc: "Thoát / Ép thoát", tags: "exit quit" },
-                    { key: "ZZ", desc: "Lưu thoát nhanh", tags: "quick save exit" }
+                    { key: ":e file", desc: "Mở file vào buffer mới", tags: "edit file" },
+                    { key: ":bn / :bp", desc: "Đến buffer tiếp theo / trước đó", tags: "buffer next" },
+                    { key: ":sp / :vs", desc: "Chia cửa sổ ngang / dọc", tags: "split window" },
+                    { key: "Ctrl + w w", desc: "Chuyển đổi giữa các cửa sổ", tags: "switch window" },
+                    { key: "Ctrl + w h/j/k/l", desc: "Nhảy sang cửa sổ Trái/Dưới/Trên/Phải", tags: "move window" },
+                    { key: "gt / gT", desc: "Đến Tab tiếp theo / trước đó", tags: "tab next" }
+                ]
+            },
+            {
+                category: "Tìm kiếm & Thay thế",
+                icon: "fa-search",
+                color: "text-orange-400",
+                commands: [
+                    { key: "/pattern", desc: "Tìm kiếm xuôi theo mẫu", tags: "search" },
+                    { key: "?pattern", desc: "Tìm kiếm ngược theo mẫu", tags: "search backward" },
+                    { key: "n / N", desc: "Kết quả kế tiếp / trước đó", tags: "next match" },
+                    { key: ":%s/old/new/g", desc: "Thay thế toàn bộ trong file", tags: "replace all" },
+                    { key: ":%s/old/new/gc", desc: "Thay thế có xác nhận", tags: "confirm replace" },
+                    { key: ":noh", desc: "Tắt highlight kết quả tìm kiếm", tags: "no highlight" }
                 ]
             }
         ];
@@ -293,13 +310,13 @@
                     container.innerHTML = `
                         <div class="category-header">
                             <i class="fas ${cat.icon} ${cat.color} w-5 text-center"></i>
-                            <h2 class="font-bold text-slate-200">${cat.category}</h2>
+                            <h2 class="font-bold text-slate-200 text-sm uppercase tracking-wider">${cat.category}</h2>
                         </div>
                         <div class="flex flex-col">
                             ${filteredCommands.map(cmd => `
-                                <div class="command-row p-4 flex justify-between items-center gap-4">
-                                    <span class="text-slate-300 text-sm leading-tight">${cmd.desc}</span>
-                                    <span class="key-badge mono text-xs">${cmd.key}</span>
+                                <div class="command-row p-3 flex justify-between items-center gap-3">
+                                    <span class="text-slate-300 text-xs md:text-sm leading-snug">${cmd.desc}</span>
+                                    <span class="key-badge mono text-[10px] md:text-xs">${cmd.key}</span>
                                 </div>
                             `).join('')}
                         </div>
