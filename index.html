@@ -144,14 +144,18 @@
                 color: "text-blue-400",
                 commands: [
                     { key: "h j k l", desc: "Trái, Xuống, Lên, Phải", tags: "trai xuong len phai move" },
-                    { key: "w / W", desc: "Đầu từ tiếp theo", tags: "word next" },
-                    { key: "e / E", desc: "Cuối từ hiện tại", tags: "end word" },
+                    { key: "w / W", desc: "Đầu từ tiếp theo (W bỏ qua ký tự đặc biệt)", tags: "word next" },
+                    { key: "e / E", desc: "Cuối từ tiếp theo", tags: "end word" },
                     { key: "b / B", desc: "Lùi lại đầu từ", tags: "back word" },
-                    { key: "0 / ^", desc: "Đầu dòng", tags: "line start dau dong" },
-                    { key: "$ / g_", desc: "Cuối dòng", tags: "line end cuoi dong" },
-                    { key: "gg / G", desc: "Đầu / Cuối file", tags: "top bottom dau cuoi" },
+                    { key: "ge / gE", desc: "Lùi lại cuối từ trước đó", tags: "backward end" },
+                    { key: "0 / ^", desc: "Về đầu dòng / Ký tự đầu tiên", tags: "line start dau dong" },
+                    { key: "$ / g_", desc: "Về cuối dòng / Ký tự cuối", tags: "line end cuoi dong" },
+                    { key: "gg / G", desc: "Đầu file / Cuối file", tags: "top bottom dau cuoi" },
+                    { key: "numG", desc: "Đến dòng số 'num'", tags: "jump line number" },
                     { key: ") / (", desc: "Câu tiếp / trước", tags: "sentence cau" },
-                    { key: "} / {", desc: "Đoạn tiếp / trước", tags: "paragraph doan" }
+                    { key: "} / {", desc: "Đoạn tiếp / trước", tags: "paragraph doan" },
+                    { key: "H / M / L", desc: "Đầu / Giữa / Cuối màn hình", tags: "High Middle Low screen" },
+                    { key: "%", desc: "Nhảy tới dấu ngoặc đối xứng", tags: "matching bracket" }
                 ]
             },
             {
