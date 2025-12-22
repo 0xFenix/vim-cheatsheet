@@ -19,12 +19,33 @@
             font-family: 'Fira Code', monospace;
         }
 
+        /* Tối ưu Layout Masonry để các card khít nhau */
+        .masonry-grid {
+            column-count: 1;
+            column-gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .masonry-grid {
+                column-count: 2;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .masonry-grid {
+                column-count: 3;
+            }
+        }
+
         .category-container {
+            break-inside: avoid; /* Ngăn card bị cắt đôi giữa các cột */
+            margin-bottom: 1.5rem;
             background: #1e293b;
             border: 1px solid #334155;
             border-radius: 12px;
             overflow: hidden;
-            height: fit-content;
+            display: inline-block; /* Quan trọng để column-count hoạt động chuẩn */
+            width: 100%;
         }
 
         .command-row {
@@ -88,7 +109,7 @@
         <!-- Header -->
         <header class="text-center mb-12">
             <div class="inline-block p-2 px-4 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm font-semibold mb-4">
-                <i class="fas fa-terminal mr-2"></i> Phiên bản tối ưu giao diện danh sách
+                <i class="fas fa-terminal mr-2"></i> Phiên bản tối ưu giao diện Masonry Grid
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-blue-500">
                 VIM CHEAT SHEET
@@ -106,8 +127,8 @@
             </div>
         </header>
 
-        <!-- Main Display -->
-        <div id="mainGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
+        <!-- Main Display - Sử dụng class masonry-grid -->
+        <div id="mainGrid" class="masonry-grid items-start">
             <!-- Render via JS -->
         </div>
 
