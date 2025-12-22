@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vim Cheat Sheet Pro - Tiếng Việt Full</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #e2e8f0;
+        }
+
+        .mono {
+            font-family: 'Fira Code', monospace;
+        }
+
+        .command-card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .command-card:hover {
+            border-color: #10b981;
+            background: #1e2e3e;
+            transform: translateY(-2px);
+        }
+
+        .key-badge {
+            background: #0f172a;
+            color: #10b981;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            border: 1px solid #334155;
+            white-space: nowrap;
+        }
+
+        .category-title {
+            position: sticky;
+            top: 0;
+            background: #0f172a;
+            padding: 10px 0;
+            z-index: 10;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+
+        kbd {
+            background: #334155;
+            border-radius: 3px;
+            padding: 1px 4px;
+            font-size: 0.8em;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-7xl mx-auto">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <div class="inline-block p-2 px-4 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 text-sm font-semibold mb-4">
+                <i class="fas fa-terminal mr-2"></i> Bản đầy đủ cập nhật theo rtorr.com
+            </div>
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-4 tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-emerald-500 to-blue-500">
+                VIM CHEAT SHEET
+            </h1>
+            <p class="text-slate-400 text-lg max-w-2xl mx-auto">Tra cứu nhanh phím tắt. Nhấn <kbd class="text-slate-300">/</kbd> để tìm kiếm.</p>
+            
+            <!-- Search Area -->
+            <div class="mt-10 relative max-w-3xl mx-auto">
+                <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                    <i class="fas fa-search text-emerald-500"></i>
+                </div>
+                <input type="text" id="searchInput" 
+                    class="block w-full pl-14 pr-6 py-5 bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-3xl focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 outline-none transition-all text-white text-lg shadow-2xl"
+                    placeholder="Tìm kiếm (ví dụ: cuộn, copy, macro, vsp)...">
+            </div>
+        </header>
+
+        <!-- Main Display -->
+        <div id="mainGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Render via JS -->
+        </div>
+
+        <!-- No Results -->
+        <div id="noResults" class="hidden text-center py-32">
+            <div class="bg-slate-800/50 inline-block p-8 rounded-full mb-6">
+                <i class="fas fa-search text-6xl text-slate-700"></i>
+            </div>
+            <p class="text-slate-500 text-2xl font-light">Không tìm thấy lệnh nào...</p>
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-24 border-t border-slate-800/50 pt-12 pb-16 text-center text-slate-500 text-sm">
+            <p class="font-medium tracking-wide">PHÁT TRIỂN DỰA TRÊN VIM.RTORR.COM | VIỆT HÓA 2024</p>
+        </footer>
+    </div>
+
+    <script>
+        const vimData = [
+            {
+                category: "Toàn cục (Global)",
+                icon: "fa-globe",
+                color: "text-green-400",
+                commands: [
+                    { key: ":help keyword", desc: "Mở trợ giúp cho từ khóa", tags: "help tro giup" },
+                    { key: ":saveas file", desc: "Lưu file thành tên mới", tags: "save as luu" },
+                    { key: ":close", desc: "Đóng cửa sổ hiện tại", tags: "close dong" },
+                    { key: "K", desc: "Tra cứu man page dưới con trỏ", tags: "man page lookup" }
+                ]
+            },
+            {
+                category: "Di chuyển (Movement)",
+                icon: "fa-arrows-alt",
+                color: "text-blue-400",
+                commands: [
+                    { key: "h j k l", desc: "Trái, Xuống, Lên, Phải", tags: "trai xuong len phai move" },
+                    { key: "w / W", desc: "Đầu từ tiếp theo (W bỏ qua ký tự đặc biệt)", tags: "word next" },
+                    { key: "e / E", desc: "Cuối từ tiếp theo", tags: "end word" },
+                    { key: "b / B", desc: "Lùi lại đầu từ", tags: "back word" },
+                    { key: "0 / ^", desc: "Đầu dòng / Đầu ký tự", tags: "line start dau dong" },
+                    { key: "$ / g_", desc: "Cuối dòng / Cuối ký tự", tags: "line end cuoi dong" },
+                    { key: "gg / G", desc: "Đầu file / Cuối file", tags: "top bottom dau cuoi" },
+                    { key: ") / (", desc: "Câu tiếp theo / Câu trước đó", tags: "sentence cau" },
+                    { key: "} / {", desc: "Đoạn tiếp theo / Đoạn trước đó", tags: "paragraph doan" }
+                ]
+            },
+            {
+                category: "Cuộn màn hình (Scrolling)",
+                icon: "fa-scroll",
+                color: "text-emerald-400",
+                commands: [
+                    { key: "Ctrl + f / b", desc: "Xuống / Lên một trang", tags: "page down up cuon" },
+                    { key: "Ctrl + d / u", desc: "Xuống / Lên nửa trang", tags: "half page down up" },
+                    { key: "zz", desc: "Đưa dòng hiện tại vào giữa màn hình", tags: "center screen" },
+                    { key: "zt / zb", desc: "Đưa lên đầu / Đưa xuống cuối màn hình", tags: "top bottom screen" }
+                ]
+            },
+            {
+                category: "Chỉnh sửa (Editing)",
+                icon: "fa-edit",
+                color: "text-purple-400",
+                commands: [
+                    { key: "i / I", desc: "Chèn trước con trỏ / đầu dòng", tags: "insert" },
+                    { key: "a / A", desc: "Chèn sau con trỏ / cuối dòng", tags: "append" },
+                    { key: "o / O", desc: "Thêm dòng mới bên dưới / trên", tags: "open line" },
+                    { key: "r / R", desc: "Thay 1 ký tự / Chế độ Replace", tags: "replace thay the" },
+                    { key: "u / Ctrl + r", desc: "Undo / Redo", tags: "hoan tac" },
+                    { key: "cc / cw / c$", desc: "Sửa dòng / từ / đến hết dòng", tags: "change" },
+                    { key: "J", desc: "Nối dòng dưới lên", tags: "join lines" },
+                    { key: ".", desc: "Lặp lại lệnh cuối", tags: "repeat" }
+                ]
+            },
+            {
+                category: "Copy & Paste",
+                icon: "fa-copy",
+                color: "text-pink-400",
+                commands: [
+                    { key: "yy", desc: "Sao chép (yank) 1 dòng", tags: "copy copy" },
+                    { key: "yw", desc: "Sao chép 1 từ", tags: "copy word" },
+                    { key: "p / P", desc: "Dán sau / trước con trỏ", tags: "paste dan" },
+                    { key: "dd / dw", desc: "Xóa (cắt) dòng / từ", tags: "delete cut xoa" },
+                    { key: "D", desc: "Xóa đến hết dòng", tags: "delete line" },
+                    { key: "x", desc: "Xóa ký tự", tags: "delete char" }
+                ]
+            },
+            {
+                category: "Chế độ Visual",
+                icon: "fa-mouse-pointer",
+                color: "text-yellow-400",
+                commands: [
+                    { key: "v", desc: "Chế độ Visual (chọn ký tự)", tags: "select visual" },
+                    { key: "V", desc: "Chế độ Visual Line (chọn dòng)", tags: "select lines" },
+                    { key: "Ctrl + v", desc: "Chế độ Visual Block (chọn khối)", tags: "select block" },
+                    { key: "aw / iw", desc: "Chọn một từ / trong một từ", tags: "text object" }
+                ]
+            },
+            {
+                category: "Tìm & Thay thế",
+                icon: "fa-search",
+                color: "text-orange-400",
+                commands: [
+                    { key: "/pattern", desc: "Tìm kiếm xuôi", tags: "find search" },
+                    { key: "?pattern", desc: "Tìm kiếm ngược", tags: "find backward" },
+                    { key: "n / N", desc: "Kết quả tiếp theo / trước đó", tags: "next previous" },
+                    { key: ":%s/old/new/g", desc: "Thay thế toàn bộ file", tags: "replace" },
+                    { key: ":%s/old/new/gc", desc: "Thay thế có xác nhận", tags: "confirm replace" }
+                ]
+            },
+            {
+                category: "Marks & Macros",
+                icon: "fa-bookmark",
+                color: "text-indigo-400",
+                commands: [
+                    { key: "qa", desc: "Bắt đầu ghi macro vào 'a'", tags: "record macro" },
+                    { key: "q", desc: "Dừng ghi macro", tags: "stop macro" },
+                    { key: "@a", desc: "Chạy macro ở 'a'", tags: "play macro" },
+                    { key: "ma", desc: "Đặt dấu (mark) tại vị trí 'a'", tags: "set mark" },
+                    { key: "'a", desc: "Nhảy tới dấu 'a'", tags: "jump mark" }
+                ]
+            },
+            {
+                category: "Lưu & Thoát",
+                icon: "fa-save",
+                color: "text-red-400",
+                commands: [
+                    { key: ":w", desc: "Lưu file", tags: "save write" },
+                    { key: ":wq / :x", desc: "Lưu và thoát", tags: "save quit" },
+                    { key: ":q / :q!", desc: "Thoát / Ép thoát", tags: "exit quit" },
+                    { key: "ZZ", desc: "Lưu và thoát nhanh", tags: "quick save exit" }
+                ]
+            }
+        ];
+
+        const mainGrid = document.getElementById('mainGrid');
+        const searchInput = document.getElementById('searchInput');
+        const noResults = document.getElementById('noResults');
+
+        function cleanString(str) {
+            return str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d");
+        }
+
+        function render(dataFilter = "") {
+            const filter = cleanString(dataFilter);
+            mainGrid.innerHTML = "";
+            let totalFound = 0;
+
+            vimData.forEach(cat => {
+                const filteredCommands = cat.commands.filter(cmd => 
+                    cleanString(cmd.key).includes(filter) || 
+                    cleanString(cmd.desc).includes(filter) ||
+                    cleanString(cmd.tags).includes(filter)
+                );
+
+                if (filteredCommands.length > 0) {
+                    totalFound += filteredCommands.length;
+                    const section = document.createElement('section');
+                    section.className = "mb-4";
+                    section.innerHTML = `
+                        <div class="category-title flex items-center gap-3 mb-4 ml-1">
+                            <div class="w-8 h-8 rounded-md bg-slate-800 flex items-center justify-center border border-slate-700">
+                                <i class="fas ${cat.icon} ${cat.color} text-sm"></i>
+                            </div>
+                            <h2 class="text-lg font-bold tracking-tight">${cat.category}</h2>
+                        </div>
+                        <div class="space-y-2">
+                            ${filteredCommands.map(cmd => `
+                                <div class="command-card p-3 rounded-xl flex justify-between items-center group">
+                                    <span class="text-slate-300 text-sm group-hover:text-white transition-colors">${cmd.desc}</span>
+                                    <span class="key-badge mono text-xs">${cmd.key}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                    mainGrid.appendChild(section);
+                }
+            });
+            noResults.classList.toggle('hidden', totalFound > 0);
+        }
+
+        searchInput.addEventListener('input', (e) => render(e.target.value));
+        window.addEventListener('keydown', (e) => {
+            if (e.key === '/' && document.activeElement !== searchInput) {
+                e.preventDefault(); searchInput.focus();
+            }
+        });
+        render();
+    </script>
+</body>
+</html>
