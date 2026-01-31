@@ -1,339 +1,502 @@
-<!DOCTYPE html>
-<html lang="vi">
+<!doctype html>
+<html lang="vi" class="h-full">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vim Cheat Sheet Pro - Tiếng Việt Full</title>
+    <title>VIM Cheatsheet</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="/_sdk/element_sdk.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;600;700&display=swap');
-        
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #0f172a;
-            color: #f1f5f9;
+            box-sizing: border-box;
         }
 
-        .mono {
-            font-family: 'Fira Code', monospace;
+        .font-mono-code {
+            font-family: 'JetBrains Mono', monospace;
         }
 
-        /* Layout Masonry tối ưu diện tích */
-        .masonry-grid {
-            column-count: 1;
-            column-gap: 1.5rem;
+        .font-display {
+            font-family: 'Space Grotesk', sans-serif;
         }
 
-        @media (min-width: 768px) {
-            .masonry-grid {
-                column-count: 2;
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .masonry-grid {
-                column-count: 3;
-            }
-        }
-
-        .category-container {
-            break-inside: avoid;
-            margin-bottom: 1.5rem;
-            background: #1e293b;
-            border: 1px solid #334155;
-            border-radius: 12px;
-            overflow: hidden;
-            display: inline-block;
-            width: 100%;
-        }
-
-        .command-row {
-            border-bottom: 1px solid #334155;
-            transition: background-color 0.15s ease;
-        }
-
-        .command-row:last-child {
-            border-bottom: none;
-        }
-
-        .command-row:hover {
-            background-color: #2d3a4f;
-        }
-
-        .key-badge {
-            background: #0f172a;
+        .kbd {
+            background: linear-gradient(180deg, #3a3a3a 0%, #2a2a2a 100%);
+            border: 1px solid #4a4a4a;
+            border-bottom: 3px solid #1a1a1a;
+            border-radius: 6px;
+            padding: 4px 10px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
             color: #10b981;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-weight: 600;
-            border: 1px solid #334155;
-            white-space: nowrap;
+            text-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
 
-        .category-header {
-            background: #2d3a4f;
-            padding: 12px 16px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            border-bottom: 1px solid #334155;
+        .category-card {
+            background: linear-gradient(145deg, #1e1e2e 0%, #181825 100%);
+            border: 1px solid #313244;
+            border-radius: 16px;
+            transition: all 0.3s ease;
         }
 
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0f172a;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #334155;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #475569;
+        .category-card:hover {
+            border-color: #10b981;
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
+            transform: translateY(-2px);
         }
 
-        kbd {
-            background: #334155;
-            border-radius: 3px;
-            padding: 1px 4px;
-            font-size: 0.85em;
-            color: #94a3b8;
+        .search-input {
+            background: #1e1e2e;
+            border: 2px solid #313244;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: #10b981;
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
+            outline: none;
+        }
+
+        .filter-btn {
+            transition: all 0.2s ease;
+        }
+
+        .filter-btn.active {
+            background: #10b981 !important;
+            color: #0d0d14 !important;
+        }
+
+        .shortcut-row {
+            transition: all 0.2s ease;
+        }
+
+        .shortcut-row:hover {
+            background: rgba(16, 185, 129, 0.08);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .glow-text {
+            text-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
         }
     </style>
+    <style>
+        @view-transition {
+            navigation: auto;
+        }
+    </style>
+    <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
 </head>
-<body class="p-4 md:p-8">
 
-    <div class="max-w-7xl mx-auto">
+<body class="h-full bg-[#0d0d14] text-gray-100 font-display overflow-auto">
+    <div class="w-full min-h-full" style="background: radial-gradient(ellipse at top, #1a1a2e 0%, #0d0d14 50%);">
         <!-- Header -->
-        <header class="text-center mb-12">
-            <div class="inline-block p-2 px-4 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm font-semibold mb-4">
-                <i class="fas fa-terminal mr-2"></i> Đồng bộ hoàn toàn từ vim.rtorr.com
-            </div>
-            <h1 class="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-blue-500 uppercase">
-                Vim Cheat Sheet Việt Hóa
+        <header class="w-full py-8 px-4 text-center border-b border-[#313244]">
+            <h1 id="page-title" class="text-4xl md:text-5xl font-bold text-[#10b981] glow-text mb-2">⌨️ VIM Cheatsheet
             </h1>
-            <p class="text-slate-400 text-lg max-w-2xl mx-auto">Đầy đủ các phím tắt quan trọng. Nhấn <kbd>/</kbd> để tìm kiếm nhanh.</p>
-            
-            <!-- Search Area -->
-            <div class="mt-8 relative max-w-2xl mx-auto">
-                <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
-                    <i class="fas fa-search text-emerald-500"></i>
+            <p id="subtitle" class="text-gray-400 text-lg">Phím tắt VIM quan trọng cho Developer</p>
+        </header><!-- Search & Filter -->
+        <div class="w-full max-w-7xl mx-auto px-4 py-6">
+            <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+                <div class="relative w-full md:w-96">
+                    <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" fill="none"
+                        stroke="currentColor" viewbox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg><input type="text" id="search-input" placeholder="Tìm kiếm phím tắt..."
+                        class="search-input w-full pl-12 pr-4 py-3 rounded-xl text-gray-100 placeholder-gray-500">
                 </div>
-                <input type="text" id="searchInput" 
-                    class="block w-full pl-14 pr-6 py-4 bg-slate-800 border border-slate-700 rounded-2xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none transition-all text-white shadow-lg"
-                    placeholder="Tìm phím tắt, lệnh hoặc chức năng...">
+                <div class="flex flex-wrap gap-2" id="filter-buttons"><button
+                        class="filter-btn active px-4 py-2 rounded-lg bg-[#1e1e2e] text-gray-300 text-sm font-medium"
+                        data-filter="all">Tất cả</button> <button
+                        class="filter-btn px-4 py-2 rounded-lg bg-[#1e1e2e] text-gray-300 text-sm font-medium"
+                        data-filter="navigation">Di chuyển</button> <button
+                        class="filter-btn px-4 py-2 rounded-lg bg-[#1e1e2e] text-gray-300 text-sm font-medium"
+                        data-filter="editing">Chỉnh sửa</button> <button
+                        class="filter-btn px-4 py-2 rounded-lg bg-[#1e1e2e] text-gray-300 text-sm font-medium"
+                        data-filter="visual">Visual</button> <button
+                        class="filter-btn px-4 py-2 rounded-lg bg-[#1e1e2e] text-gray-300 text-sm font-medium"
+                        data-filter="file">File</button> <button
+                        class="filter-btn px-4 py-2 rounded-lg bg-[#1e1e2e] text-gray-300 text-sm font-medium"
+                        data-filter="search">Tìm kiếm</button>
+                </div>
             </div>
-        </header>
-
-        <!-- Main Display -->
-        <div id="mainGrid" class="masonry-grid items-start">
-            <!-- Dữ liệu được đổ từ JS -->
-        </div>
-
-        <!-- No Results -->
-        <div id="noResults" class="hidden text-center py-32">
-            <div class="bg-slate-800 inline-block p-8 rounded-full mb-6 border border-slate-700">
-                <i class="fas fa-search text-5xl text-slate-600"></i>
+        </div><!-- Cheatsheet Grid -->
+        <main class="w-full max-w-7xl mx-auto px-4 pb-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" id="cheatsheet-grid">
+                <!-- Cards will be rendered by JS -->
             </div>
-            <p class="text-slate-400 text-xl font-medium">Không tìm thấy lệnh này trong bộ nhớ</p>
-        </div>
-
-        <!-- Footer -->
-        <footer class="mt-20 border-t border-slate-800 pt-8 pb-12 text-center text-slate-500 text-xs uppercase tracking-widest">
-            <p>Dựa trên mã nguồn vim.rtorr.com &bull; Cập nhật đầy đủ phím di chuyển & thanh ghi</p>
+        </main><!-- Footer -->
+        <footer class="w-full py-6 text-center border-t border-[#313244]">
+            <p class="text-gray-500 text-sm">💡 Tip: Dùng <span class="kbd">:help</span> trong VIM để xem hướng dẫn chi
+                tiết</p>
         </footer>
     </div>
-
     <script>
-        const vimData = [
+        const defaultConfig = {
+            page_title: '⌨️ VIM Cheatsheet',
+            subtitle: 'Phím tắt VIM quan trọng cho Developer',
+            primary_color: '#10b981',
+            background_color: '#0d0d14',
+            card_color: '#1e1e2e',
+            text_color: '#f3f4f6',
+            accent_color: '#313244'
+        };
+
+        let config = { ...defaultConfig };
+
+        const cheatsheetData = [
             {
-                category: "Toàn cục (Global)",
-                icon: "fa-globe",
-                color: "text-green-400",
-                commands: [
-                    { key: ":h[elp] keyword", desc: "Mở trợ giúp cho từ khóa", tags: "help tro giup" },
-                    { key: ":sav[eas] file", desc: "Lưu file với tên mới", tags: "save as luu" },
-                    { key: ":clo[se]", desc: "Đóng cửa sổ hiện tại", tags: "close dong window" },
-                    { key: ":ter[minal]", desc: "Mở cửa sổ terminal", tags: "terminal console" },
-                    { key: "K", desc: "Mở man page của từ dưới con trỏ", tags: "manual lookup" }
+                id: 'navigation',
+                title: '🧭 Di chuyển cơ bản',
+                category: 'navigation',
+                shortcuts: [
+                    { keys: ['h', 'j', 'k', 'l'], desc: 'Trái / Xuống / Lên / Phải' },
+                    { keys: ['w'], desc: 'Nhảy đến đầu từ tiếp theo' },
+                    { keys: ['b'], desc: 'Nhảy về đầu từ trước' },
+                    { keys: ['e'], desc: 'Nhảy đến cuối từ' },
+                    { keys: ['0'], desc: 'Về đầu dòng' },
+                    { keys: ['$'], desc: 'Đến cuối dòng' },
+                    { keys: ['^'], desc: 'Ký tự đầu tiên (không space)' },
+                    { keys: ['gg'], desc: 'Về đầu file' },
+                    { keys: ['G'], desc: 'Đến cuối file' },
+                    { keys: ['Ctrl', 'u'], desc: 'Lên nửa trang' },
+                    { keys: ['Ctrl', 'd'], desc: 'Xuống nửa trang' },
+                    { keys: ['{', '}'], desc: 'Nhảy đoạn văn trước/sau' }
                 ]
             },
             {
-                category: "Di chuyển (Movement)",
-                icon: "fa-arrows-alt",
-                color: "text-blue-400",
-                commands: [
-                    { key: "h j k l", desc: "Trái, Xuống, Lên, Phải", tags: "move directional" },
-                    { key: "gj / gk", desc: "Di chuyển xuống/lên trong văn bản dài (multi-line)", tags: "wrapped lines" },
-                    { key: "w / W", desc: "Đến đầu từ kế tiếp (W bỏ qua dấu câu)", tags: "word jump" },
-                    { key: "e / E", desc: "Đến cuối từ kế tiếp (E bỏ qua dấu câu)", tags: "end word" },
-                    { key: "b / B", desc: "Lùi lại đầu từ (B bỏ qua dấu câu)", tags: "back word" },
-                    { key: "ge / gE", desc: "Lùi lại cuối từ trước đó", tags: "backward end" },
-                    { key: "0 / ^", desc: "Về đầu dòng / Ký tự đầu tiên không trống", tags: "line start" },
-                    { key: "$ / g_", desc: "Về cuối dòng / Ký tự cuối không trống", tags: "line end" },
-                    { key: "gg / G", desc: "Về đầu file / Cuối file", tags: "top bottom" },
-                    { key: "5gg / 5G", desc: "Đến dòng số 5", tags: "line jump" },
-                    { key: "gd / gD", desc: "Đến khai báo cục bộ / toàn cục", tags: "declaration" },
-                    { key: "fx / tx", desc: "Tìm ký tự 'x' tiếp theo / dừng ngay trước đó", tags: "find char" },
-                    { key: "Fx / Tx", desc: "Tìm ký tự 'x' ngược lại / dừng ngay sau đó", tags: "find backward" },
-                    { key: "; / ,", desc: "Lặp lại lệnh tìm f/t theo hướng xuôi/ngược", tags: "repeat find" },
-                    { key: "} / {", desc: "Đến đoạn (paragraph) tiếp theo / trước đó", tags: "jump block" },
-                    { key: "H / M / L", desc: "Đầu / Giữa / Cuối màn hình hiện tại", tags: "screen position" },
-                    { key: "%", desc: "Nhảy tới dấu ngoặc đối xứng (), {}, []", tags: "matching bracket" }
+                id: 'editing',
+                title: '✏️ Chỉnh sửa',
+                category: 'editing',
+                shortcuts: [
+                    { keys: ['i'], desc: 'Insert tại con trỏ' },
+                    { keys: ['I'], desc: 'Insert đầu dòng' },
+                    { keys: ['a'], desc: 'Append sau con trỏ' },
+                    { keys: ['A'], desc: 'Append cuối dòng' },
+                    { keys: ['o'], desc: 'Tạo dòng mới bên dưới' },
+                    { keys: ['O'], desc: 'Tạo dòng mới bên trên' },
+                    { keys: ['r'], desc: 'Thay 1 ký tự' },
+                    { keys: ['R'], desc: 'Chế độ Replace' },
+                    { keys: ['cc'], desc: 'Xóa dòng & insert' },
+                    { keys: ['C'], desc: 'Xóa đến cuối dòng & insert' },
+                    { keys: ['s'], desc: 'Xóa ký tự & insert' },
+                    { keys: ['S'], desc: 'Xóa dòng & insert (= cc)' }
                 ]
             },
             {
-                category: "Chế độ Chèn (Insert Mode)",
-                icon: "fa-keyboard",
-                color: "text-emerald-400",
-                commands: [
-                    { key: "i / I", desc: "Chèn trước con trỏ / đầu dòng", tags: "insert" },
-                    { key: "a / A", desc: "Chèn sau con trỏ / cuối dòng", tags: "append" },
-                    { key: "o / O", desc: "Dòng mới phía dưới / phía trên", tags: "open line" },
-                    { key: "ea", desc: "Chèn vào cuối từ hiện tại", tags: "append word end" },
-                    { key: "Ctrl + h/w", desc: "Xóa ký tự / Xóa từ trước con trỏ", tags: "delete insert" },
-                    { key: "Ctrl + j", desc: "Thêm ngắt dòng (line break)", tags: "new line" },
-                    { key: "Ctrl + t/d", desc: "Thụt lề vào / Thụt lề ra", tags: "indent" },
-                    { key: "Ctrl + n/p", desc: "Gợi ý từ tiếp theo / trước đó", tags: "autocomplete" },
-                    { key: "Esc / Ctrl+c", desc: "Thoát chế độ chèn", tags: "exit insert" }
+                id: 'delete',
+                title: '🗑️ Xóa & Cắt',
+                category: 'editing',
+                shortcuts: [
+                    { keys: ['x'], desc: 'Xóa ký tự tại con trỏ' },
+                    { keys: ['X'], desc: 'Xóa ký tự trước con trỏ' },
+                    { keys: ['dd'], desc: 'Xóa (cắt) dòng hiện tại' },
+                    { keys: ['dw'], desc: 'Xóa từ hiện tại' },
+                    { keys: ['d$'], desc: 'Xóa đến cuối dòng' },
+                    { keys: ['d0'], desc: 'Xóa đến đầu dòng' },
+                    { keys: ['diw'], desc: 'Xóa từ (inner word)' },
+                    { keys: ['daw'], desc: 'Xóa từ + space' },
+                    { keys: ['di"'], desc: 'Xóa trong ngoặc kép' },
+                    { keys: ['da"'], desc: 'Xóa cả ngoặc kép' },
+                    { keys: ['di('], desc: 'Xóa trong ngoặc ()' },
+                    { keys: ['di{'], desc: 'Xóa trong ngoặc {}' }
                 ]
             },
             {
-                category: "Chỉnh sửa (Editing)",
-                icon: "fa-edit",
-                color: "text-purple-400",
-                commands: [
-                    { key: "r / R", desc: "Thay 1 ký tự / Chế độ thay thế (Replace)", tags: "replace" },
-                    { key: "J / gJ", desc: "Nối dòng dưới lên (có/không khoảng cách)", tags: "join lines" },
-                    { key: "cc / C", desc: "Sửa toàn bộ dòng / từ con trỏ đến cuối dòng", tags: "change" },
-                    { key: "ciw / cw", desc: "Sửa toàn bộ từ / sửa đến cuối từ", tags: "change word" },
-                    { key: "s / S", desc: "Xóa ký tự và chèn / Xóa dòng và chèn", tags: "substitute" },
-                    { key: "u / U", desc: "Hoàn tác (Undo) / Khôi phục dòng cuối", tags: "undo" },
-                    { key: "Ctrl + r", desc: "Làm lại (Redo)", tags: "redo" },
-                    { key: ".", desc: "Lặp lại lệnh cuối cùng", tags: "repeat" },
-                    { key: "gu / gU", desc: "Chuyển thành chữ thường / chữ hoa", tags: "lowercase uppercase" }
+                id: 'copy-paste',
+                title: '📋 Copy & Paste',
+                category: 'editing',
+                shortcuts: [
+                    { keys: ['yy'], desc: 'Copy dòng hiện tại' },
+                    { keys: ['yw'], desc: 'Copy từ' },
+                    { keys: ['y$'], desc: 'Copy đến cuối dòng' },
+                    { keys: ['p'], desc: 'Paste sau con trỏ' },
+                    { keys: ['P'], desc: 'Paste trước con trỏ' },
+                    { keys: ['"+y'], desc: 'Copy vào clipboard hệ thống' },
+                    { keys: ['"+p'], desc: 'Paste từ clipboard hệ thống' }
                 ]
             },
             {
-                category: "Visual Mode & Cắt/Dán",
-                icon: "fa-copy",
-                color: "text-pink-400",
-                commands: [
-                    { key: "v / V", desc: "Chọn theo ký tự / Chọn theo dòng", tags: "visual" },
-                    { key: "Ctrl + v", desc: "Chọn khối dọc (Visual Block)", tags: "visual block" },
-                    { key: "aw / iw", desc: "Chọn toàn bộ từ / chọn trong từ", tags: "text object" },
-                    { key: "yy / 2yy", desc: "Copy (yank) 1 dòng / 2 dòng", tags: "copy" },
-                    { key: "yw / yiw", desc: "Copy từ / Copy toàn bộ từ dưới con trỏ", tags: "copy word" },
-                    { key: "p / P", desc: "Dán sau / trước con trỏ", tags: "paste" },
-                    { key: "dd / dw", desc: "Xóa (cắt) dòng / từ", tags: "delete cut" },
-                    { key: "D / x", desc: "Xóa đến hết dòng / Xóa ký tự hiện tại", tags: "delete" }
+                id: 'visual',
+                title: '🎯 Visual Mode',
+                category: 'visual',
+                shortcuts: [
+                    { keys: ['v'], desc: 'Visual mode (chọn ký tự)' },
+                    { keys: ['V'], desc: 'Visual line (chọn dòng)' },
+                    { keys: ['Ctrl', 'v'], desc: 'Visual block (chọn khối)' },
+                    { keys: ['o'], desc: 'Di chuyển đầu/cuối vùng chọn' },
+                    { keys: ['gv'], desc: 'Chọn lại vùng trước' },
+                    { keys: ['>'], desc: 'Indent vùng chọn' },
+                    { keys: ['<'], desc: 'Outdent vùng chọn' },
+                    { keys: ['y'], desc: 'Copy vùng chọn' },
+                    { keys: ['d'], desc: 'Xóa vùng chọn' },
+                    { keys: ['~'], desc: 'Đổi chữ hoa/thường' }
                 ]
             },
             {
-                category: "Thanh ghi (Registers)",
-                icon: "fa-memory",
-                color: "text-yellow-400",
-                commands: [
-                    { key: ":reg", desc: "Hiển thị nội dung các thanh ghi", tags: "registers list" },
-                    { key: '\"xy', desc: "Copy vào thanh ghi x", tags: "yank register" },
-                    { key: '\"xp', desc: "Dán từ thanh ghi x", tags: "paste register" },
-                    { key: '\"+y', desc: "Copy vào Clipboard hệ thống", tags: "system clipboard" },
-                    { key: '\"+p', desc: "Dán từ Clipboard hệ thống", tags: "system paste" }
+                id: 'search-replace',
+                title: '🔍 Tìm kiếm & Thay thế',
+                category: 'search',
+                shortcuts: [
+                    { keys: ['/pattern'], desc: 'Tìm kiếm xuôi' },
+                    { keys: ['?pattern'], desc: 'Tìm kiếm ngược' },
+                    { keys: ['n'], desc: 'Kết quả tiếp theo' },
+                    { keys: ['N'], desc: 'Kết quả trước đó' },
+                    { keys: ['*'], desc: 'Tìm từ tại con trỏ (xuôi)' },
+                    { keys: ['#'], desc: 'Tìm từ tại con trỏ (ngược)' },
+                    { keys: [':s/old/new/'], desc: 'Thay thế đầu tiên trong dòng' },
+                    { keys: [':s/old/new/g'], desc: 'Thay tất cả trong dòng' },
+                    { keys: [':%s/old/new/g'], desc: 'Thay tất cả trong file' },
+                    { keys: [':%s/old/new/gc'], desc: 'Thay thế có xác nhận' }
                 ]
             },
             {
-                category: "Dấu & Vị trí (Marks)",
-                icon: "fa-bookmark",
-                color: "text-indigo-400",
-                commands: [
-                    { key: ":marks", desc: "Danh sách các điểm đã đánh dấu", tags: "marks list" },
-                    { key: "ma", desc: "Đánh dấu vị trí hiện tại là 'a'", tags: "set mark" },
-                    { key: "`a", desc: "Nhảy đến vị trí 'a'", tags: "jump mark" },
-                    { key: "``", desc: "Nhảy về vị trí trước lần nhảy cuối", tags: "jump back" },
-                    { key: "Ctrl + o/i", desc: "Về vị trí cũ / mới trong Jump list", tags: "history jump" }
+                id: 'file-ops',
+                title: '💾 File & Buffer',
+                category: 'file',
+                shortcuts: [
+                    { keys: [':w'], desc: 'Lưu file' },
+                    { keys: [':q'], desc: 'Thoát' },
+                    { keys: [':wq'], desc: 'Lưu và thoát' },
+                    { keys: [':q!'], desc: 'Thoát không lưu' },
+                    { keys: [':x'], desc: 'Lưu (nếu có thay đổi) và thoát' },
+                    { keys: ['ZZ'], desc: 'Lưu và thoát (= :x)' },
+                    { keys: ['ZQ'], desc: 'Thoát không lưu (= :q!)' },
+                    { keys: [':e file'], desc: 'Mở file' },
+                    { keys: [':bn'], desc: 'Buffer tiếp theo' },
+                    { keys: [':bp'], desc: 'Buffer trước' },
+                    { keys: [':bd'], desc: 'Đóng buffer' }
                 ]
             },
             {
-                category: "Nhiều File & Cửa sổ",
-                icon: "fa-clone",
-                color: "text-cyan-400",
-                commands: [
-                    { key: ":e file", desc: "Mở file vào buffer mới", tags: "edit file" },
-                    { key: ":bn / :bp", desc: "Đến buffer tiếp theo / trước đó", tags: "buffer next" },
-                    { key: ":sp / :vs", desc: "Chia cửa sổ ngang / dọc", tags: "split window" },
-                    { key: "Ctrl + w w", desc: "Chuyển đổi giữa các cửa sổ", tags: "switch window" },
-                    { key: "Ctrl + w h/j/k/l", desc: "Nhảy sang cửa sổ Trái/Dưới/Trên/Phải", tags: "move window" },
-                    { key: "gt / gT", desc: "Đến Tab tiếp theo / trước đó", tags: "tab next" }
+                id: 'undo-redo',
+                title: '↩️ Undo & Redo',
+                category: 'editing',
+                shortcuts: [
+                    { keys: ['u'], desc: 'Undo' },
+                    { keys: ['Ctrl', 'r'], desc: 'Redo' },
+                    { keys: ['.'], desc: 'Lặp lại lệnh trước' },
+                    { keys: ['U'], desc: 'Undo tất cả thay đổi trên dòng' }
                 ]
             },
             {
-                category: "Tìm kiếm & Thay thế",
-                icon: "fa-search",
-                color: "text-orange-400",
-                commands: [
-                    { key: "/pattern", desc: "Tìm kiếm xuôi theo mẫu", tags: "search" },
-                    { key: "?pattern", desc: "Tìm kiếm ngược theo mẫu", tags: "search backward" },
-                    { key: "n / N", desc: "Kết quả kế tiếp / trước đó", tags: "next match" },
-                    { key: ":%s/old/new/g", desc: "Thay thế toàn bộ trong file", tags: "replace all" },
-                    { key: ":%s/old/new/gc", desc: "Thay thế có xác nhận", tags: "confirm replace" },
-                    { key: ":noh", desc: "Tắt highlight kết quả tìm kiếm", tags: "no highlight" }
+                id: 'windows',
+                title: '🪟 Windows & Tabs',
+                category: 'file',
+                shortcuts: [
+                    { keys: [':sp'], desc: 'Split ngang' },
+                    { keys: [':vs'], desc: 'Split dọc' },
+                    { keys: ['Ctrl', 'w', 'w'], desc: 'Chuyển window' },
+                    { keys: ['Ctrl', 'w', 'h/j/k/l'], desc: 'Di chuyển giữa windows' },
+                    { keys: ['Ctrl', 'w', '='], desc: 'Cân bằng kích thước' },
+                    { keys: [':tabnew'], desc: 'Tab mới' },
+                    { keys: ['gt'], desc: 'Tab tiếp theo' },
+                    { keys: ['gT'], desc: 'Tab trước' },
+                    { keys: [':tabclose'], desc: 'Đóng tab' }
+                ]
+            },
+            {
+                id: 'marks',
+                title: '📍 Marks & Jumps',
+                category: 'navigation',
+                shortcuts: [
+                    { keys: ['ma'], desc: 'Đặt mark "a"' },
+                    { keys: ['\'a'], desc: 'Nhảy đến dòng mark "a"' },
+                    { keys: ['`a'], desc: 'Nhảy đến vị trí mark "a"' },
+                    { keys: [':marks'], desc: 'Xem tất cả marks' },
+                    { keys: ['Ctrl', 'o'], desc: 'Nhảy về vị trí trước' },
+                    { keys: ['Ctrl', 'i'], desc: 'Nhảy tới vị trí sau' },
+                    { keys: ['%'], desc: 'Nhảy đến ngoặc đối ứng' }
+                ]
+            },
+            {
+                id: 'macros',
+                title: '🎬 Macros',
+                category: 'editing',
+                shortcuts: [
+                    { keys: ['qa'], desc: 'Bắt đầu ghi macro "a"' },
+                    { keys: ['q'], desc: 'Dừng ghi macro' },
+                    { keys: ['@a'], desc: 'Chạy macro "a"' },
+                    { keys: ['@@'], desc: 'Chạy lại macro cuối' },
+                    { keys: ['5@a'], desc: 'Chạy macro "a" 5 lần' }
+                ]
+            },
+            {
+                id: 'text-objects',
+                title: '📦 Text Objects',
+                category: 'editing',
+                shortcuts: [
+                    { keys: ['iw'], desc: 'Inner word' },
+                    { keys: ['aw'], desc: 'A word (bao gồm space)' },
+                    { keys: ['is'], desc: 'Inner sentence' },
+                    { keys: ['ip'], desc: 'Inner paragraph' },
+                    { keys: ['i"'], desc: 'Trong ngoặc kép' },
+                    { keys: ['i\''], desc: 'Trong ngoặc đơn' },
+                    { keys: ['i)'], desc: 'Trong ngoặc ()' },
+                    { keys: ['i]'], desc: 'Trong ngoặc []' },
+                    { keys: ['i}'], desc: 'Trong ngoặc {}' },
+                    { keys: ['it'], desc: 'Trong tag HTML' }
                 ]
             }
         ];
 
-        const mainGrid = document.getElementById('mainGrid');
-        const searchInput = document.getElementById('searchInput');
-        const noResults = document.getElementById('noResults');
+        let currentFilter = 'all';
+        let searchQuery = '';
 
-        function cleanString(str) {
-            return str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d");
-        }
+        function renderCheatsheet() {
+            const grid = document.getElementById('cheatsheet-grid');
+            grid.innerHTML = '';
 
-        function render(dataFilter = "") {
-            const filter = cleanString(dataFilter);
-            mainGrid.innerHTML = "";
-            let totalFound = 0;
-
-            vimData.forEach(cat => {
-                const filteredCommands = cat.commands.filter(cmd => 
-                    cleanString(cmd.key).includes(filter) || 
-                    cleanString(cmd.desc).includes(filter) ||
-                    cleanString(cmd.tags).includes(filter)
-                );
-
-                if (filteredCommands.length > 0) {
-                    totalFound += filteredCommands.length;
-                    const container = document.createElement('div');
-                    container.className = "category-container";
-                    container.innerHTML = `
-                        <div class="category-header">
-                            <i class="fas ${cat.icon} ${cat.color} w-5 text-center"></i>
-                            <h2 class="font-bold text-slate-200 text-sm uppercase tracking-wider">${cat.category}</h2>
-                        </div>
-                        <div class="flex flex-col">
-                            ${filteredCommands.map(cmd => `
-                                <div class="command-row p-3 flex justify-between items-center gap-3">
-                                    <span class="text-slate-300 text-xs md:text-sm leading-snug">${cmd.desc}</span>
-                                    <span class="key-badge mono text-[10px] md:text-xs">${cmd.key}</span>
-                                </div>
-                            `).join('')}
-                        </div>
-                    `;
-                    mainGrid.appendChild(container);
-                }
+            const filteredData = cheatsheetData.filter(card => {
+                const matchesFilter = currentFilter === 'all' || card.category === currentFilter;
+                const matchesSearch = searchQuery === '' ||
+                    card.shortcuts.some(s =>
+                        s.keys.join(' ').toLowerCase().includes(searchQuery.toLowerCase()) ||
+                        s.desc.toLowerCase().includes(searchQuery.toLowerCase())
+                    ) ||
+                    card.title.toLowerCase().includes(searchQuery.toLowerCase());
+                return matchesFilter && matchesSearch;
             });
-            noResults.classList.toggle('hidden', totalFound > 0);
+
+            filteredData.forEach((card, index) => {
+                const cardEl = document.createElement('div');
+                cardEl.className = 'category-card p-5 animate-fade-in';
+                cardEl.style.animationDelay = `${index * 0.05}s`;
+
+                const filteredShortcuts = searchQuery === ''
+                    ? card.shortcuts
+                    : card.shortcuts.filter(s =>
+                        s.keys.join(' ').toLowerCase().includes(searchQuery.toLowerCase()) ||
+                        s.desc.toLowerCase().includes(searchQuery.toLowerCase())
+                    );
+
+                cardEl.innerHTML = `
+          <h3 class="text-lg font-bold text-[${config.primary_color || defaultConfig.primary_color}] mb-4 pb-2 border-b border-[#313244]">${card.title}</h3>
+          <div class="space-y-2">
+            ${filteredShortcuts.map(s => `
+              <div class="shortcut-row flex items-center justify-between py-2 px-2 rounded-lg">
+                <div class="flex items-center gap-1 flex-wrap">
+                  ${s.keys.map(k => `<span class="kbd">${escapeHtml(k)}</span>`).join('<span class="text-gray-500 mx-1">+</span>')}
+                </div>
+                <span class="text-gray-400 text-sm ml-3 text-right">${s.desc}</span>
+              </div>
+            `).join('')}
+          </div>
+        `;
+
+                grid.appendChild(cardEl);
+            });
+
+            if (filteredData.length === 0) {
+                grid.innerHTML = `
+          <div class="col-span-full text-center py-12">
+            <p class="text-gray-500 text-lg">😅 Không tìm thấy phím tắt nào</p>
+            <p class="text-gray-600 text-sm mt-2">Thử từ khóa khác nhé!</p>
+          </div>
+        `;
+            }
         }
 
-        searchInput.addEventListener('input', (e) => render(e.target.value));
-        window.addEventListener('keydown', (e) => {
-            if (e.key === '/' && document.activeElement !== searchInput) {
-                e.preventDefault(); searchInput.focus();
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function updateUI() {
+            document.getElementById('page-title').textContent = config.page_title || defaultConfig.page_title;
+            document.getElementById('subtitle').textContent = config.subtitle || defaultConfig.subtitle;
+            renderCheatsheet();
+        }
+
+        // Event listeners
+        document.getElementById('search-input').addEventListener('input', (e) => {
+            searchQuery = e.target.value;
+            renderCheatsheet();
+        });
+
+        document.getElementById('filter-buttons').addEventListener('click', (e) => {
+            if (e.target.classList.contains('filter-btn')) {
+                document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                e.target.classList.add('active');
+                currentFilter = e.target.dataset.filter;
+                renderCheatsheet();
             }
         });
-        render();
+
+        // Element SDK
+        const element = {
+            defaultConfig,
+            onConfigChange: async (newConfig) => {
+                config = { ...defaultConfig, ...newConfig };
+                updateUI();
+            },
+            mapToCapabilities: (cfg) => ({
+                recolorables: [
+                    {
+                        get: () => cfg.background_color || defaultConfig.background_color,
+                        set: (v) => { cfg.background_color = v; window.elementSdk.setConfig({ background_color: v }); }
+                    },
+                    {
+                        get: () => cfg.card_color || defaultConfig.card_color,
+                        set: (v) => { cfg.card_color = v; window.elementSdk.setConfig({ card_color: v }); }
+                    },
+                    {
+                        get: () => cfg.text_color || defaultConfig.text_color,
+                        set: (v) => { cfg.text_color = v; window.elementSdk.setConfig({ text_color: v }); }
+                    },
+                    {
+                        get: () => cfg.primary_color || defaultConfig.primary_color,
+                        set: (v) => { cfg.primary_color = v; window.elementSdk.setConfig({ primary_color: v }); }
+                    },
+                    {
+                        get: () => cfg.accent_color || defaultConfig.accent_color,
+                        set: (v) => { cfg.accent_color = v; window.elementSdk.setConfig({ accent_color: v }); }
+                    }
+                ],
+                borderables: [],
+                fontEditable: {
+                    get: () => cfg.font_family || 'Space Grotesk',
+                    set: (v) => { cfg.font_family = v; window.elementSdk.setConfig({ font_family: v }); }
+                },
+                fontSizeable: {
+                    get: () => cfg.font_size || 16,
+                    set: (v) => { cfg.font_size = v; window.elementSdk.setConfig({ font_size: v }); }
+                }
+            }),
+            mapToEditPanelValues: (cfg) => new Map([
+                ['page_title', cfg.page_title || defaultConfig.page_title],
+                ['subtitle', cfg.subtitle || defaultConfig.subtitle]
+            ])
+        };
+
+        if (window.elementSdk) {
+            window.elementSdk.init(element);
+        }
+
+        // Initial render
+        updateUI();
     </script>
+    <script>(function () { function c() { var b = a.contentDocument || a.contentWindow.document; if (b) { var d = b.createElement('script'); d.innerHTML = "window.__CF$cv$params={r:'9c666eba202bfc0c',t:'MTc2OTgzMzM5NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);"; b.getElementsByTagName('head')[0].appendChild(d) } } if (document.body) { var a = document.createElement('iframe'); a.height = 1; a.width = 1; a.style.position = 'absolute'; a.style.top = 0; a.style.left = 0; a.style.border = 'none'; a.style.visibility = 'hidden'; document.body.appendChild(a); if ('loading' !== document.readyState) c(); else if (window.addEventListener) document.addEventListener('DOMContentLoaded', c); else { var e = document.onreadystatechange || function () { }; document.onreadystatechange = function (b) { e(b); 'loading' !== document.readyState && (document.onreadystatechange = e, c()) } } } })();</script>
 </body>
+
 </html>
